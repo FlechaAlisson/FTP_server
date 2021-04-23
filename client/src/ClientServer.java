@@ -44,7 +44,7 @@ public class ClientServer implements Runnable {
             //0L = zero do long
             if (size != 0L){
 
-                OutputStream output = new FileOutputStream("./ftp_files\\" + fileName);
+                OutputStream output = new FileOutputStream("./client/files\\" + fileName);
                 byte[] buffer = new byte[1024];
 
                 while (size > 0 && (bytesRead = ds.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1)
@@ -52,14 +52,12 @@ public class ClientServer implements Runnable {
                     output.write(buffer, 0, bytesRead);
                     size -= bytesRead;
 
-                    System.out.println("Arquivo " + fileName + " " + (((auxilarSize-size)*100)/auxilarSize) + "% recebido ");
                 }
 
                 double estimatedTime = (System.currentTimeMillis() - startTime)/1000;
 
                 for (int i = 0; i < 100; ++i) System.out.println();
-                System.out.println("Arquivo " + fileName + " recebido!");
-                System.out.println("Arquivos recebidos ficam na pasta ./ftp_received");
+                System.out.println("Download finalizado");
 
                 if(estimatedTime!=0){
                     System.out.println("Taxa de transferencia: " + (((double)auxilarSize)/1000)/estimatedTime + "kbps");
